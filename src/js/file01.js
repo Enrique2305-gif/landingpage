@@ -1,5 +1,6 @@
 "use strict";
 import { fetchProducts, fetchCategories } from "./functions.js";
+import { saveVote, getVotes } from "./firebase.js";
 
 const showToast = () => {
     const toast = document.getElementById("toast-interactive");
@@ -110,11 +111,86 @@ const renderCategories = async () => {
   }
 };
 
+const enableForm = () => {
+  const form = document.getElementById("form_voting");
+  if (!form) return;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const select = document.getElementById("select_product");
+    const productID = select.value;
+
+    try {
+      const result = await saveVote(productID);
+      alert(result.message);
+    } catch (error) {
+      alert("Error al guardar el voto: " + error);
+    }
+  });
+};
+
+const displayVotes = async () => {
+  const container = document.getElementById("results");
+  container.innerHTML = "<p>Cargando votos...</p>";
+
+  try {
+    const result = await getVotes();
+
+    if (result.status === true) {
+      const votesData = result.data;
+
+      // Contar votos por producto
+      const voteCount = {};
+      for (const key in votesData) {
+        const productID = votesData[key].productID;
+        if (!voteCount[productID]) {
+          voteCount[productID] = 0;
+        }
+        voteCount[productID]++;
+      }
+
+      // Crear la tabla
+      let tableHTML = `
+        <table class="min-w-full border border-gray-300 bg-white dark:bg-gray-800 rounded-lg">
+          <thead class="bg-gray-200 dark:bg-gray-700">
+            <tr>
+              <th class="py-2 px-4 text-left">Producto</th>
+              <th class="py-2 px-4 text-left">Total de Votos</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for (const productID in voteCount) {
+        tableHTML += `
+          <tr class="border-t border-gray-300">
+            <td class="py-2 px-4">${productID}</td>
+            <td class="py-2 px-4">${voteCount[productID]}</td>
+          </tr>
+        `;
+      }
+
+      tableHTML += `
+          </tbody>
+        </table>
+      `;
+
+      // Insertar tabla en el contenedor
+      container.innerHTML = tableHTML;
+    } else {
+      container.innerHTML = `<p>${result.message}</p>`;
+    }
+  } catch (error) {
+    container.innerHTML = `<p>Error al mostrar los votos: ${error}</p>`;
+  }
+};
+
 (() => {
-    alert("¡Bienvenido a la página!");
-    console.log("Mensaje de bienvenida mostrado.");
     showToast();
     showVideo();
     renderProducts();
     renderCategories();
+    enableForm();
+    displayVotes();
 })();
