@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Tienda de regalos sostenibles</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   </head>
 
   <body class="bg-green-50 dark:bg-gray-900 text-gray-800 dark:text-white">
@@ -24,9 +31,11 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0">
-            <li><a href="#inicio" class="text-green-700 hover:text-green-500">Inicio</a></li>
+            <li><a href="#inicio" class="hover:text-green-500">Inicio</a></li>
+            <li><a href="#historia" class="hover:text-green-500">Nuestra historia</a></li>
             <li><a href="#productos" class="hover:text-green-500">Productos</a></li>
             <li><a href="#impacto" class="hover:text-green-500">Impacto</a></li>
+            <li><a href="#votacion" class="hover:text-green-500">Votación</a></li>
             <li><a href="#contacto" class="hover:text-green-500">Contacto</a></li>
           </ul>
         </div>
@@ -143,23 +152,49 @@
   </section>
 
     <!-- 🔹 Votación -->
-    <section class="flex flex-col items-center justify-center bg-white dark:bg-gray-800 py-12">
+    <section id="votacion" class="bg-green-50 dark:bg-gray-800 py-16">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
+
+      <div class="flex flex-col justify-center text-justify ">
+        <h3 class="text-3xl font-bold text-green-700 dark:text-green-400 mt-20">Participa con tu voto</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          Tu opinión es muy importante para nosotros 🌱. Cada voto nos ayuda a saber qué productos te inspiran más y cuáles deberíamos destacar o mejorar. 
+        </p>
+        <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          Nuestro objetivo es crear artículos sostenibles que reflejen tus valores y estilo de vida. Al participar en la votación, estás apoyando la producción responsable y el consumo consciente.
+        </p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          ¡Gracias por formar parte de la comunidad <strong>EcoRegalos</strong>!  
+          Tus comentarios y preferencias nos ayudan a crecer y seguir cuidando el planeta, un detalle a la vez 🌍.
+        </p>
+    </div>
+
       <div class="bg-green-100 p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Vota por tu regalo favorito</h2>
+        <h2 class="text-3xl font-bold mb-6 text-green-700 dark:text-green-400 text-center">Vota por tu producto favorito</h2>
+
+        <!-- Formulario -->
         <form id="form_voting" class="flex flex-col space-y-4">
-          <select id="select_product" class="border border-green-300 p-3 rounded-lg">
+            <select id="select_product" class="border border-green-300 p-3 rounded-lg dark:bg-gray-700 dark:text-white">
             <option value="" disabled selected>Seleccione un producto</option>
             <option value="Caja reciclada">Caja reciclada</option>
             <option value="Tarjeta ecológica">Tarjeta ecológica</option>
             <option value="Maceta de cartón">Maceta de cartón</option>
           </select>
-          <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg">Votar</button>
+          <button
+            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+            Votar
+          </button>
         </form>
-        <div id="results" class="border border-green-300 rounded-lg h-52 w-full mt-4 p-2 bg-white text-center text-gray-500">
-          Resultado de la votación
+
+        <!-- Resultados -->
+        <div id="results" class="border border-green-400 rounded-lg h-52 w-full mt-6 p-3 bg-green-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 overflow-auto text-center flex justify-center">
+          <p class="text-center text-gray-500 mt-16">Resultado de la votación</p>
         </div>
       </div>
-    </section>
+
+      <!-- 💬 Columna derecha: información -->
+    
+  </section>
 
     <!-- 🔹 Contacto -->
     <section id="contacto" class="bg-green-50 dark:bg-gray-900 py-16">
@@ -176,62 +211,55 @@
         <!-- Formulario -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8">
           <h3 class="text-xl font-semibold text-green-700 dark:text-green-400 mb-4 text-center">Envíanos un mensaje</h3>
-          <form action="#" method="POST" class="space-y-4">
-            <div>
-              <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
-              <input type="text" id="nombre" name="nombre" required
-                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
-            </div>
+          <form id="contactForm" class="space-y-4">
+  <div>
+    <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required
+      class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
+  </div>
 
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Correo electrónico</label>
-              <input type="email" id="email" name="email" required
-                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
-            </div>
+  <div>
+    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Correo electrónico</label>
+    <input type="email" id="email" name="email" required
+      class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
+  </div>
 
-            <div>
-              <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje</label>
-              <textarea id="mensaje" name="mensaje" rows="4" required
-                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white"></textarea>
-            </div>
+  <div>
+    <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje</label>
+    <textarea id="mensaje" name="mensaje" rows="4" required
+      class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white"></textarea>
+  </div>
 
-            <button type="submit"
-              class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">
-              Enviar mensaje
-            </button>
-          </form>
+  <button type="submit"
+    class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+    Enviar mensaje
+  </button>
+
+  <!-- Aquí aparecerá el mensaje de confirmación -->
+  <p id="formMessage" class="text-center text-green-700 dark:text-green-400 mt-3 font-medium hidden">
+    ¡Mensaje enviado con éxito! 🌱
+  </p>
+</form>
         </div>
 
         <!-- Información adicional -->
         <div class="space-y-6 text-gray-700 dark:text-gray-300 text-justify">
           <h3 class="text-xl font-semibold text-green-700 dark:text-green-400">Información de contacto</h3>
           <p>
-            📍 <strong>Dirección:</strong> Calle Verde 123, Quito, Ecuador  
+            📍 <strong>Dirección:</strong> Calle Verde 123, Guayaquil, Ecuador  
           </p>
           <p>
             📞 <strong>Teléfono:</strong> +593 98 765 4321  
           </p>
           <p>
-            ✉️ <strong>Correo:</strong> contacto@ecoregalo.com  
+            ✉️ <strong>Correo:</strong> ecoregalos12@ecoregalo.com  
           </p>
 
-          <h3 class="text-xl font-semibold text-green-700 dark:text-green-400 mt-8">Síguenos</h3>
-          <div class="flex space-x-4 text-2xl justify-start">
-            <a href="https://facebook.com" target="_blank" class="hover:text-green-600 transition">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://instagram.com" target="_blank" class="hover:text-green-600 transition">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://wa.me/593987654321" target="_blank" class="hover:text-green-600 transition">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-          </div>
-
-          <div class="mt-8">
+          <h3 class="text-xl font-semibold text-green-700 dark:text-green-400 mt-8">Ubícanos en:</h3>
+          <div class="mt-4">
             <iframe
-              class="w-full h-56 rounded-lg shadow-md"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.799375932321!2d-78.49102062413117!3d-0.1806535998159249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a3d2b2d6c2d%3A0xf06b9d50786e0b91!2sQuito%2C%20Ecuador!5e0!3m2!1ses!2sec!4v1695000000000!5m2!1ses!2sec"
+              class="w-full h-54 rounded-lg shadow-md"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13123.943345938662!2d-79.9717642!3d-2.1457342!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d7303bb0133cd%3A0x66c18bd9810f31cb!2sFacultad%20de%20Ingenier%C3%ADa%20en%20Electricidad%20y%20Computaci%C3%B3n%20FIEC%20-%20ESPOL!5e1!3m2!1ses-419!2sec!4v1762206264572!5m2!1ses-419!2sec" 
               allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
@@ -244,6 +272,29 @@
     <footer class="bg-green-700 text-white py-6 text-center">
       <p>&copy; 2025 EcoRegalos. Todos los derechos reservados.</p>
     </footer>
+
+    <div class="fixed bottom-5 right-5 flex flex-col space-y-3 z-50">
+
+  <!-- Facebook -->
+  <div class="fixed bottom-5 right-5 flex flex-col space-y-3 z-50">
+  <a href="https://facebook.com" target="_blank"
+     class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com" target="_blank"
+     class="bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/59394535323" target="_blank"
+     class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+</div>
 
     <script type="module" src="src/js/file01.js"></script>
   </body>
