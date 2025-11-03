@@ -3,19 +3,19 @@ import { fetchProducts, fetchCategories } from "./functions.js";
 import { saveVote, getVotes } from "./firebase.js";
 
 const showToast = () => {
-    const toast = document.getElementById("toast-interactive");
-    if (toast) {
-        toast.classList.add("md:block");
-    }
+  const toast = document.getElementById("toast-interactive");
+  if (toast) {
+    toast.classList.add("md:block");
+  }
 };
 
 const showVideo = () => {
-    const demo = document.getElementById("demo");
-    if (demo) {
-        demo.addEventListener("click", () => {
-            window.open("https://www.youtube.com/watch?v=tl6u2NASUzU", "_blank");
-        });
-    }
+  const demo = document.getElementById("demo");
+  if (demo) {
+    demo.addEventListener("click", () => {
+      window.open("https://www.youtube.com/watch?v=tl6u2NASUzU", "_blank");
+    });
+  }
 };
 
 const renderProducts = () => {
@@ -112,85 +112,108 @@ const renderCategories = async () => {
 };
 
 const enableForm = () => {
-  const form = document.getElementById("form_voting");
-  if (!form) return;
+  // Obtener referencia al formulario
+  const form = document.getElementById('form_voting');
 
-  form.addEventListener("submit", async (event) => {
+  // Asegurarse de que el formulario exista en el DOM
+  if (!form) {
+    console.error('No se encontró el formulario con id "form_voting".');
+    return;
+  }
+
+  // Agregar listener al evento 'submit'
+  form.addEventListener('submit', async (event) => {
+    // Evitar comportamiento por defecto del formulario
     event.preventDefault();
 
-    const select = document.getElementById("select_product");
-    const productID = select.value;
+    // Obtener valor del elemento select_product
+    const selectProduct = document.getElementById('select_product');
+    const value = selectProduct?.value;
+
+    if (!value) {
+      alert('Por favor seleccione un producto antes de enviar el voto.');
+      return;
+    }
 
     try {
-      const result = await saveVote(productID);
-      alert(result.message);
+      const result = await saveVote(value);
+
+      if (result.status === "success") {
+        alert(result.message); // muestra el mensaje correcto
+        await displayVotes(); // actualizar la tabla automáticamente
+      } else {
+        alert(`Error: ${result.message}`);
+      }
     } catch (error) {
-      alert("Error al guardar el voto: " + error);
+      alert(`Error al guardar el voto: ${error.message}`);
     }
   });
 };
 
+// Función para mostrar los votos en una tabla
 const displayVotes = async () => {
-  const container = document.getElementById("results");
-  container.innerHTML = "<p>Cargando votos...</p>";
+  const resultsContainer = document.getElementById('results');
+  if (!resultsContainer) return;
 
   try {
     const result = await getVotes();
 
-    if (result.status === true) {
-      const votesData = result.data;
-
-      // Contar votos por producto
-      const voteCount = {};
-      for (const key in votesData) {
-        const productID = votesData[key].productID;
-        if (!voteCount[productID]) {
-          voteCount[productID] = 0;
-        }
-        voteCount[productID]++;
-      }
-
-      // Crear la tabla
-      let tableHTML = `
-        <table class="min-w-full border border-gray-300 bg-white dark:bg-gray-800 rounded-lg">
-          <thead class="bg-gray-200 dark:bg-gray-700">
-            <tr>
-              <th class="py-2 px-4 text-left">Producto</th>
-              <th class="py-2 px-4 text-left">Total de Votos</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-
-      for (const productID in voteCount) {
-        tableHTML += `
-          <tr class="border-t border-gray-300">
-            <td class="py-2 px-4">${productID}</td>
-            <td class="py-2 px-4">${voteCount[productID]}</td>
-          </tr>
-        `;
-      }
-
-      tableHTML += `
-          </tbody>
-        </table>
-      `;
-
-      // Insertar tabla en el contenedor
-      container.innerHTML = tableHTML;
-    } else {
-      container.innerHTML = `<p>${result.message}</p>`;
+    if (!result.success) {
+      resultsContainer.innerHTML = `<p>${result.message}</p>`;
+      return;
     }
+
+    const votesData = result.data;
+
+    // Contar votos por producto
+    const votesCount = {};
+    for (const key in votesData) {
+      const vote = votesData[key];
+      if (votesCount[vote.productID]) {
+        votesCount[vote.productID]++;
+      } else {
+        votesCount[vote.productID] = 1;
+      }
+    }
+
+    // Crear tabla HTML
+    let tableHTML = `
+<table border="1" cellpadding="5" cellspacing="0">
+<thead>
+<tr>
+<th>Producto</th>
+<th>Total de votos</th>
+</tr>
+</thead>
+<tbody>
+`;
+
+    for (const productID in votesCount) {
+      tableHTML += `
+<tr>
+<td>${productID}</td>
+<td>${votesCount[productID]}</td>
+</tr>
+`;
+    }
+
+    tableHTML += `</tbody></table>`;
+
+    resultsContainer.innerHTML = tableHTML;
+
   } catch (error) {
-    container.innerHTML = `<p>Error al mostrar los votos: ${error}</p>`;
+    resultsContainer.innerHTML = `<p>Error al obtener los votos: ${error.message}</p>`;
   }
 };
 
+(async () => {
+  enableForm();
+  await displayVotes();
+})();
+
 (() => {
-    showToast();
-    showVideo();
-    renderProducts();
-    renderCategories();
-    enableForm();
-    displayVotes();
+  showToast();
+  showVideo();
+  renderProducts();
+  renderCategories();
 })();

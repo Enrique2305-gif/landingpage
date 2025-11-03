@@ -82,4 +82,5 @@ const getVotes = async () => {
   }
 };
 
+//Comentario para exportar
 export { saveVote, getVotes };
