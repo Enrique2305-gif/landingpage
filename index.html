@@ -91,7 +91,7 @@
   </section>
 
     <!-- 🔹 Productos -->
-    <section id="productos" class="bg-green-50 dark:bg-gray-900 py-16">
+    <section id="productos" class="justify-center bg-white dark:bg-gray-800 py-12">
       <h2 class="text-4xl font-extrabold text-center text-green-700 dark:text-green-400 mb-10">Nuestros productos más vendidos</h2>
 
       <div class="max-w-4xl mx-auto mb-6">
@@ -102,10 +102,45 @@
         </form>
       </div>
 
-      <div id="products-container" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+      <div id="products-container" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-6 dark:bg-gray-700">
         <!-- Productos cargados dinámicamente -->
       </div>
     </section>
+
+    <!--Nuestra Historia-->
+    <section id="historia" class="bg-green-50 dark:bg-gray-900 py-16">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Imagen -->
+      <div class="flex justify-center">
+        <img 
+          src="https://media.istockphoto.com/id/499617919/es/foto/manos-levantar-de-trabajador-de-almac%C3%A9n.jpg?s=612x612&w=0&k=20&c=66iR1re5PxPh9N6IM3wUvfLFaQzUCi4WN55_b2OkeYk="
+          alt="Manos trabajando en productos reciclados"
+          class="rounded-2xl shadow-lg w-full max-w-md object-cover transition-transform duration-500 hover:scale-105">
+      </div>
+
+      <!-- Texto -->
+      <div>
+         <h2 class="text-4xl font-extrabold text-green-700 dark:text-green-400 mb-4">Nuestra historia</h2>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-justify">
+            <strong>EcoRegalos</strong> nació de una idea sencilla, ofrecer detalles únicos que celebren la creatividad, la sostenibilidad y el amor por el planeta.  
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-justify">
+            Comenzamos en un pequeño taller artesanal reutilizando cartón, papel y madera reciclada para crear regalos personalizados. Con el tiempo, nuestro compromiso con la ecología y la innovación nos impulsó a compartir estos productos con el mundo.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
+            Hoy seguimos creciendo, pero con el mismo propósito, demostrar que los regalos pueden ser hermosos, responsables y con historia.
+          </p>
+
+        <div class="mt-6">
+          <a href="#contacto" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+            Conoce más
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
     <!-- 🔹 Votación -->
     <section class="flex flex-col items-center justify-center bg-white dark:bg-gray-800 py-12">
@@ -127,11 +162,83 @@
     </section>
 
     <!-- 🔹 Contacto -->
-    <section id="contacto" class="bg-green-50 dark:bg-gray-900 py-16 text-center">
-      <h2 class="text-3xl font-bold text-green-700 dark:text-green-400 mb-6">Contáctanos</h2>
-      <p class="text-gray-600 dark:text-gray-300 mb-8">¿Tienes una idea especial o quieres un diseño personalizado? Escríbenos.</p>
-      <a href="mailto:info@ecoregalo.com" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">Enviar mensaje</a>
-    </section>
+    <section id="contacto" class="bg-green-50 dark:bg-gray-900 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-green-700 dark:text-green-400 text-center mb-6">Contáctanos</h2>
+      <p class="text-gray-700 dark:text-gray-300 text-center max-w-2xl mx-auto mb-10 text-justify">
+        En <strong>EcoRegalos</strong> creemos que cada detalle cuenta. Si tienes una idea personalizada, 
+        deseas colaborar con nosotros o simplemente quieres saber más sobre nuestros productos sostenibles, 
+        ¡nos encantará escucharte! Puedes escribirnos directamente o llenar el formulario y te responderemos pronto.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+
+        <!-- Formulario -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8">
+          <h3 class="text-xl font-semibold text-green-700 dark:text-green-400 mb-4 text-center">Envíanos un mensaje</h3>
+          <form action="#" method="POST" class="space-y-4">
+            <div>
+              <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required
+                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Correo electrónico</label>
+              <input type="email" id="email" name="email" required
+                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white">
+            </div>
+
+            <div>
+              <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" required
+                class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="space-y-6 text-gray-700 dark:text-gray-300 text-justify">
+          <h3 class="text-xl font-semibold text-green-700 dark:text-green-400">Información de contacto</h3>
+          <p>
+            📍 <strong>Dirección:</strong> Calle Verde 123, Quito, Ecuador  
+          </p>
+          <p>
+            📞 <strong>Teléfono:</strong> +593 98 765 4321  
+          </p>
+          <p>
+            ✉️ <strong>Correo:</strong> contacto@ecoregalo.com  
+          </p>
+
+          <h3 class="text-xl font-semibold text-green-700 dark:text-green-400 mt-8">Síguenos</h3>
+          <div class="flex space-x-4 text-2xl justify-start">
+            <a href="https://facebook.com" target="_blank" class="hover:text-green-600 transition">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-green-600 transition">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/593987654321" target="_blank" class="hover:text-green-600 transition">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+
+          <div class="mt-8">
+            <iframe
+              class="w-full h-56 rounded-lg shadow-md"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.799375932321!2d-78.49102062413117!3d-0.1806535998159249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a3d2b2d6c2d%3A0xf06b9d50786e0b91!2sQuito%2C%20Ecuador!5e0!3m2!1ses!2sec!4v1695000000000!5m2!1ses!2sec"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- 🔹 Footer -->
     <footer class="bg-green-700 text-white py-6 text-center">
