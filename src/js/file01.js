@@ -19,7 +19,7 @@ const showVideo = () => {
 };
 
 const renderProducts = (selectedCategory = null) => {
-  fetchProducts("src/ecoproducts.json")
+  fetchProducts("/data/ecoproducts.json")
     .then(result => {
       if (result.success === true) {
         const container = document.getElementById("products-container");
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const renderCategories = async () => {
   try {
     const result = await fetchCategories(
-      "src/ecocategories.xml"
+      "/data/ecocategories.xml"
     );
 
     if (result.success === true) {
