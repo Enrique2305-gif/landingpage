@@ -76,6 +76,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.getElementById("contactForm");
+  const formMessage = document.getElementById("formMessage");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Evita que recargue la página
+
+      // Mostrar mensaje
+      formMessage.classList.remove("hidden");
+      formMessage.textContent = "¡Mensaje enviado con éxito! 🌱";
+
+      // Vaciar los campos del formulario
+      contactForm.reset();
+
+      // Ocultar mensaje después de unos segundos
+      setTimeout(() => {
+        formMessage.classList.add("hidden");
+      }, 4000);
+    });
+  }
+});
+
 const renderCategories = async () => {
   try {
     const result = await fetchCategories(
