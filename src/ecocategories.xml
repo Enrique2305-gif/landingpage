@@ -1,0 +1,22 @@
+<categories>
+  <category>
+    <id>regalos</id>
+    <name>Regalos sostenibles</name>
+  </category>
+  <category>
+    <id>hogar</id>
+    <name>Decoración para el hogar</name>
+  </category>
+  <category>
+    <id>papeleria</id>
+    <name>Papelería ecológica</name>
+  </category>
+  <category>
+    <id>accesorios</id>
+    <name>Accesorios reciclados</name>
+  </category>
+  <category>
+    <id>all</id>
+    <name>Todas las categorías</name>
+  </category>
+</categories>
