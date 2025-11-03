@@ -1,52 +1,85 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/x.y.z/firebase-app.js";
-import { getDatabase, ref, set, push, get, child } from "https://www.gstatic.com/firebasejs/x.y.z/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import { getDatabase, ref, set, push, get } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
 
+// Configuración HARDCODEADA para testing
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: "AIzaSyDoYGmy4yK1s8_oKk8YczZkoT9uYEw_Fpk",
+  authDomain: "landingpage-bb433.firebaseapp.com",
+  databaseURL: "https://landingpage-bb433-default-rtdb.firebaseio.com",
+  projectId: "landingpage-bb433",
+  storageBucket: "landingpage-bb433.firebasestorage.app",
+  messagingSenderId: "126317700959",
+  appId: "1:126317700959:web:451f68ceacab2cf8bf78ea"
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+console.log("Firebase configurado con URL:", firebaseConfig.databaseURL);
 
+// Inicializar Firebase
+let database;
+try {
+  const app = initializeApp(firebaseConfig);
+  database = getDatabase(app);
+  console.log(" Firebase inicializado correctamente");
+} catch (error) {
+  console.error(" Error inicializando Firebase:", error);
+}
 
-export const saveVote = async (productID) => {
+const saveVote = async (productID) => {
   try {
+    console.log(" Guardando voto para producto:", productID);
+
     const votesRef = ref(database, "votes");
     const newVoteRef = push(votesRef);
+
     await set(newVoteRef, {
       productID: productID,
-      date: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
+
+    console.log(" Voto guardado exitosamente");
+
     return {
       status: "success",
-      message: "Voto guardado correctamente ✅"
+      message: "¡Voto guardado correctamente!",
     };
   } catch (error) {
+    console.error(" Error en saveVote:", error);
     return {
       status: "error",
-      message: `Error al guardar el voto: ${error.message}`
+      message: `Error al guardar el voto: ${error.message}`,
     };
   }
 };
 
-export const getVotes = async () => {
+const getVotes = async () => {
   try {
-    const dbRef = ref(database, "votes");
-    const snapshot = await get(dbRef);
+    console.log(" Obteniendo votos...");
+
+    const votesRef = ref(database, 'votes');
+    const snapshot = await get(votesRef);
 
     if (snapshot.exists()) {
-      return { status: true, data: snapshot.val() };
+      const data = snapshot.val();
+      console.log(" Votos obtenidos:", data);
+
+      return {
+        success: true,
+        data: data
+      };
     } else {
-      return { status: false, message: "No hay votos registrados aún." };
+      console.log("ℹ No hay votos en la base de datos");
+      return {
+        success: true,
+        data: {}
+      };
     }
   } catch (error) {
-    return { status: false, message: "Error al obtener los votos: " + error };
+    console.error(" Error en getVotes:", error);
+    return {
+      success: false,
+      message: `Error al obtener los votos: ${error.message}`
+    };
   }
 };
 
-
+export { saveVote, getVotes };
